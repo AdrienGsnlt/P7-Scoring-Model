@@ -20,7 +20,8 @@ def index():
 @app.post('/predict')
 def prep_p(data:PreClass):
     data = data.dict()
-    features = [data[f] for f in ["EXT_SOURCE_3", "EXT_SOURCE_2", "CODE_GENDER", "DAYS_REGISTRATION", "DAYS_BIRTH", "PAYMENT_RATE"]]
+    features = [data[f] for f in ["EXT_SOURCE_3", "EXT_SOURCE_2", "DAYS_REGISTRATION",
+                                  "DAYS_BIRTH", "PAYMENT_RATE","DAYS_LAST_PHONE_CHANGE","DAYS_ID_PUBLISH","REGION_POPULATION_RELATIVE"]]
     prediction = clf.predict([features])[0]
     prob_pred = clf.predict_proba([features])
     prob_pred_format =  dict(prob_pred.tolist())
@@ -30,7 +31,7 @@ def prep_p(data:PreClass):
     prediction = "Client solvable" if prediction > 0.5 else "Client non solvable"
     return {
         'prediction': prediction,
-        'probabilité': round(proba_value_1*100,2)
+        'probabilite': round(proba_value_1*100,2)
     }
     
 # 5. Run the API with uvicorn
