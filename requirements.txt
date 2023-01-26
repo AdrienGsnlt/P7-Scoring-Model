@@ -1,0 +1,8 @@
+pandas
+numpy
+streamlit
+plost
+pickle
+sklearn
+lightgbm
+LGBMClassifier
