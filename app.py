@@ -1,7 +1,7 @@
 #API
 # 1. Library imports
 import uvicorn ##ASGI
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from PreClass import PreClass
 import numpy as np
 import pickle
@@ -9,30 +9,43 @@ import pandas as pd
 
 # 2. Create the app object
 app = FastAPI()
-pickle_in = open("clf.pkl","rb")
-clf = pickle.load(pickle_in)
 
-# 3. Index route, opens automatically on http://127.0.0.1:8000
-@app.get('/')
-def index():
-    return {'message': 'Hello, World'}
+# Chargement du modèle sauvegardé avec pickle
+try:
+    pickle_in = open("clf.pkl", "rb")
+    clf = pickle.load(pickle_in)
+except:
+    print("Erreur lors du chargement du modèle sauvegardé")
 
-@app.post('/predict')
-def prep_p(data:PreClass):
-    data = data.dict()
-    features = [data[f] for f in ["EXT_SOURCE_3", "EXT_SOURCE_2", "DAYS_REGISTRATION",
-                                  "DAYS_BIRTH", "PAYMENT_RATE","DAYS_LAST_PHONE_CHANGE","DAYS_ID_PUBLISH","REGION_POPULATION_RELATIVE"]]
-    prediction = clf.predict([features])[0]
-    prob_pred = clf.predict_proba([features])
-    prob_pred_format =  dict(prob_pred.tolist())
-    for key in prob_pred_format.keys():
-        proba_value_1 = prob_pred_format[key]
-        
-    prediction = "Client solvable" if prediction > 0.5 else "Client non solvable"
-    return {
-        'prediction': prediction,
-        'probabilite': round(proba_value_1*100,2)
-    }
+# Chargement des données
+try :
+    path = "/Users/adpro/Desktop/Scoring_Model/data_api.csv"
+    data = pd.read_csv(path)
+except:
+    print("Erreur lors du chargemet des données")
+
+
+app = FastAPI()
+@app.get("/predict/{customer_id}")
+def predict(customer_id: int = Path(..., gt=0)):
+    # Récupération des données du client
+    customer_data = data[data["ID"] == customer_id]
+    if customer_data.empty:
+        return {"error": "Aucun client trouvé avec cet ID"}
+    
+    # Sélection des variables à utiliser pour la prédiction
+    feats = customer_data.drop(["ID", "Target"], axis=1)
+    
+    #probabilité
+    try:
+        proba = dict(clf.predict_proba([feats][0]).tolist())
+        for key in proba.keys():
+            proba = proba[key]
+    except: 
+        print("erreur lors du calcul de probabilité")
+    
+    
+    return {"probabilite":proba}
     
 # 5. Run the API with uvicorn
 #    Will run on http://127.0.0.1:8000
