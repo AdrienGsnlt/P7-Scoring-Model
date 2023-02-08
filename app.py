@@ -24,7 +24,7 @@ except:
 def index():
     return {'message': 'Hello, World'}
 
-@app.route("/predict/<int:customer_id>", methods=["GET"])
+@app.route("/predict/<int:customer_id>", methods=["POST"])
 def predict(customer_id):
     # Récupération des données du client
     customer_data = data[data["ID"] == customer_id]
