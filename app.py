@@ -10,6 +10,10 @@ import pandas as pd
 
 app = Flask(__name__)
 
+@app.get('/')
+def index():
+    return {'message': 'Hello, World'}
+
 try:
     pickle_in = open("clf.pkl", "rb")
     clf = pickle.load(pickle_in)
@@ -21,6 +25,8 @@ try:
     data = pd.read_csv(path)
 except:
     print("Error loading the data")
+
+
 
 @app.route("/predict/<int:customer_id>", methods=["GET"])
 def predict(customer_id):
