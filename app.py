@@ -8,10 +8,6 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.get('/')
-def index():
-    return {'message': 'Hello, World'}
-
 try:
     pickle_in = open("clf.pkl", "rb")
     clf = pickle.load(pickle_in)
@@ -24,7 +20,9 @@ try:
 except:
     print("Error loading the data")
 
-
+@app.get('/')
+def index():
+    return {'message': 'Hello, World'}
 
 @app.route("/predict/<int:customer_id>", methods=["GET"])
 def predict(customer_id):
