@@ -49,7 +49,7 @@ def color_jauge(score):
 
 ########
 # Importation des données
-path = "/Users/adpro/Desktop/Scoring_Model/data_api.csv"
+path = "/app/data_api.csv"data_api.csv"
 data = load_data(path)
 
 
@@ -71,7 +71,7 @@ client_data = id_client(data,number_id)
 ### Solvabilite du client
 
 
-url = "http://127.0.0.1:5000/predict/{customer_id}"
+url = "https://appprediction.herokuapp.com/predict/{customer_id}"
 
 response = requests.get(url.format(customer_id=number_id))
 result = response.json()
