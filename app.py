@@ -9,14 +9,14 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 try:
-    pickle_in = open("https://github.com/AdrienGsnlt/P7-Scoring-Model/blob/master/clf.pkl", "rb")
+    pickle_in = open("/app/clf.pkl", "rb")
     clf = pickle.load(pickle_in)
 except Exception as e:
     print("Error loading the saved model")
     print(e)
 
 try:
-    path = "https://github.com/AdrienGsnlt/P7-Scoring-Model/blob/master/data_api.csv"
+    path = "/app/data_api.csv"
     data = pd.read_csv(path)
 except Exception as e:
     print("Error loading the data")
