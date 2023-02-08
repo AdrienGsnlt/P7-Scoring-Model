@@ -11,14 +11,16 @@ app = Flask(__name__)
 try:
     pickle_in = open("https://github.com/AdrienGsnlt/P7-Scoring-Model/blob/master/clf.pkl", "rb")
     clf = pickle.load(pickle_in)
-except:
+except Exception as e:
     print("Error loading the saved model")
+    print(e)
 
 try:
     path = "https://github.com/AdrienGsnlt/P7-Scoring-Model/blob/master/data_api.csv"
     data = pd.read_csv(path)
-except:
+except Exception as e:
     print("Error loading the data")
+    print(e)
 
 @app.get('/')
 def index():
