@@ -1,7 +1,6 @@
 # Library imports
-import uvicorn ##ASGI
 import gunicorn
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import numpy as np
 import pickle5 as pickle
 import pandas as pd 
