@@ -9,7 +9,7 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 try:
-    pickle_in = open("clf.pkl", "rb")
+    pickle_in = open("https://github.com/AdrienGsnlt/P7-Scoring-Model/blob/master/clf.pkl", "rb")
     clf = pickle.load(pickle_in)
 except:
     print("Error loading the saved model")
