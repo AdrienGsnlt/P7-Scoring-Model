@@ -1,12 +1,11 @@
 # Library imports
 import uvicorn ##ASGI
+import gunicorn
 from flask import Flask, request
 import numpy as np
-import pickle
+import pickle5 as pickle
 import pandas as pd 
 from flask import Flask, jsonify
-import pickle
-import pandas as pd
 
 app = Flask(__name__)
 
