@@ -3,11 +3,8 @@
 import streamlit as st
 import pandas as pd 
 import plost
-import pickle
 import sklearn
 #Classifier
-import lightgbm
-from lightgbm import LGBMClassifier
 ### Check Accuracy
 from sklearn.metrics import accuracy_score
 import seaborn as sns
@@ -16,12 +13,16 @@ import plotly.express as px
 import requests
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+import IPython
+import shap
+import pickle5 as pickle
+import lightgbm
 
 
 ###########
 #definition des fonctions utilies
 
-#@st.cache
+@st.cache
 def load_data(path):
     data = pd.read_csv(path) 
     return data
@@ -46,14 +47,33 @@ def color_jauge(score):
         return "rgb({}, {}, 0)".format(r, g)
     else:
         return "rgb(255, 0, 0)"
+    
+##modèle
+@st.cache
+def load_model(path_m):
+    pickle_in = open(path_m, "rb")
+    clf = pickle.load(pickle_in)
+    return clf
 
+##Shap explainer
+@st.cache
+def shap_explainer(data,clf):
+    X = data.drop(["ID", "Target"], axis=1)
+    explainer = shap.TreeExplainer(clf)
+    return explainer
+    
+    
 ########
 # Importation des données
-path = "/app/data_api.csv"data_api.csv"
-data = load_data(path)
+path = "/app/data_api.csv"
+data = load_data(path) 
 
+#importation du modèle
+path_m = "/app/clf.pkl"
+clf = load_model(path_m)
 
-
+### shap explainer
+explainer = shap_explainer(data,clf)
 
 #####################################
 # Main Content
@@ -62,7 +82,10 @@ data = load_data(path)
 st.title("Score de solvabilité banquaire")
 st.header("Evaluation du client")
 
+st.sidebar.header("Paramètres")
+
 ##Input client
+st.sidebar.subheader("Infos du client")
 number_id = st.sidebar.number_input("ID du client",min_value = min(data["ID"]),max_value=max(data["ID"]))
 
 #processing des données
@@ -86,9 +109,15 @@ fig = px.pie(values=[score+1], hole=0.01, color_discrete_sequence=[color], heigh
 fig.update_traces(textinfo='none')
 st.plotly_chart(fig)
 
+if prediction >=.95:
+    st.write("Le client est solvable")
+elif prediction >= 90:
+    st.write ("Le présente un léger risque de non-solvabilité")
+else : st.write ("Le client n'est pas solvable")
+
 ##Description du client
-if st.sidebar.checkbox("Voir détails informations client"): 
-    st.write("**GENDER**".client_data["GENDER"].values[0])
+if st.sidebar.checkbox("Voir plus de détails"): 
+    st.write("**GENDER :**", client_data["GENDER"].values[0])
     st.write("**BUSINESS_TYPE :**", client_data["BUSINESS_TYPE"].values[0])
     st.write("**EXT3 :**", client_data["EXT3"].values[0])
     st.write("**REGION_RATING :**", client_data["REGION_RATING"].values[0])
@@ -139,8 +168,8 @@ st.pyplot(fig)
 
 
 ## Détails sur chaque features
-st.subheader("Details sur chaque features")
-option_feat= st.sidebar.selectbox("Features", ("GENDER","BUSINESS_TYPE","EXT3","REGION_RATING","UNACCOMPANIED","EXT2","INCOME_TYPE"))
+st.subheader("Details sur chaque feature")
+option_feat= st.sidebar.selectbox("Details Features", ("GENDER","BUSINESS_TYPE","EXT3","REGION_RATING","UNACCOMPANIED","EXT2","INCOME_TYPE"))
 st.header(option_feat)
 
 if option_feat == "GENDER":
@@ -237,9 +266,30 @@ if option_feat == "INCOME_TYPE":
 
 
 ### Scatter plot
-st.header("Scatter Plot")
+st.header("Scatter Plot Entre les 2 principales features")
 color_client = color_jauge(score)
 fig, ax = plt.subplots(figsize=(10,10))
 sns.scatterplot(data=data, x=round(data["GENDER"],2),y=data["BUSINESS_TYPE"],hue="Target")
 sns.scatterplot(data=client_data, x=round(client_data["GENDER"],2),y=client_data["BUSINESS_TYPE"], color='red', s=400)
 st.pyplot(fig)
+
+### Features importances
+st.header("Importances des features dans la prédiction de solvabilité")
+X = data.drop(["ID", "Target"], axis=1)
+shap_values=explainer.shap_values(X)
+shap_values_client=explainer.shap_values(client_data)
+
+##Feature globales
+st.subheader("Feature Importance Globale")
+fig, ax = plt.subplots(figsize=(10,10))
+shap.summary_plot(shap_values[0],X,plot_type='bar',color_bar=False,plot_size=(5,5))
+st.pyplot(fig)
+
+##Feature Local   
+st.subheader("Feature Importance du client ")
+fig, ax = plt.subplots(figsize=(10,10))
+shap.summary_plot(shap_values_client[0],X,plot_type='bar',color_bar=False,plot_size=(5,5))
+st.pyplot(fig)
+    
+    
+    
