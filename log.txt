@@ -1,0 +1,45 @@
+c8ae97e - Adrien Gasnault, il y a 9 minutes : parametrage heroku
+157817a - Adrien Gasnault, il y a 27 heures : parametrage heroku
+7704b9a - Adrien Gasnault, il y a 2 jours : parametrage heroku
+ea65c88 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+ffb05ff - Adrien Gasnault, il y a 2 jours : parametrage heroku
+6fc1357 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+624d9fc - Adrien Gasnault, il y a 2 jours : parametrage heroku
+9925d71 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+8bc4d9b - Adrien Gasnault, il y a 2 jours : parametrage heroku
+a14b640 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+7b693d4 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+321fa73 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+3f8996f - Adrien Gasnault, il y a 2 jours : parametrage heroku
+be7dafd - Adrien Gasnault, il y a 2 jours : parametrage heroku
+3e4be8c - Adrien Gasnault, il y a 2 jours : parametrage heroku
+a22d77d - Adrien Gasnault, il y a 2 jours : parametrage heroku
+de9d7c3 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+87c9d5e - Adrien Gasnault, il y a 2 jours : parametrage heroku
+564d8f6 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+9cd0572 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+c36e608 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+57e883d - Adrien Gasnault, il y a 2 jours : parametrage heroku
+ad879b8 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+06f45ad - Adrien Gasnault, il y a 2 jours : parametrage heroku
+6320782 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+886de79 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+fb97ef5 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+905b8e6 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+bdfb811 - Adrien Gasnault, il y a 2 jours : parametrage heroku
+e98d804 - Adrien Gasnault, il y a 3 jours : deplacement fichieru
+5706cf6 - Adrien Gasnault, il y a 3 jours : hebergement heroku
+4a3a6a7 - Adrien Gasnault, il y a 11 jours : mise à jour des scripts
+a13f0c0 - Adrien Gasnault, il y a 11 jours : mise à jour des scripts
+85f0315 - Adrien Gasnault, il y a 2 semaines : avancement streamlit_app
+cd0e725 - Adrien Gasnault, il y a 2 semaines : first streamlite app commit
+0f532ed - Adrien Gasnault, il y a 2 semaines : first streamlite app commit
+f17598b - Adrien Gasnault, il y a 2 semaines : maj des fichiers
+91d7dfc - Adrien Gasnault, il y a 2 semaines : maj des fichiers
+26973a0 - Adrien Gasnault, il y a 4 semaines : modif api
+189b5d3 - Adrien Gasnault, il y a 4 semaines : modif api
+15ddb84 - Adrien Gasnault, il y a 4 semaines : ajout de l'api test
+d43982f - Adrien Gasnault, il y a 4 semaines : ajout d'une fonction de formatage des variables
+edcbcf0 - Adrien Gasnault, il y a 4 semaines : ajout du model lgbm
+cdda52f - Adrien Gasnault, il y a 4 semaines : first commit
+5be49d4 - Adrien Gasnault, il y a 4 semaines : ajout des datas
